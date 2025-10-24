@@ -8,7 +8,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public class ConfigReader {
-    private static final Logger LOG = Logger.getLogger(DriverFactory.class.getName());
+    private static final Logger LOG = Logger.getLogger(ConfigReader.class.getName());
     private static final Properties PROPERTIES = new Properties();
 
     static {
@@ -22,7 +22,7 @@ public class ConfigReader {
             if (base != null) {
                 PROPERTIES.load(base);
             } else {
-                System.out.println("Base config.properties not found, using defaults.");
+                System.out.println("Base config.properties not found, using defaults or system.");
             }
         } catch (IOException e) {
             System.err.println("Error reading base config.properties: " + e.getMessage());
@@ -37,7 +37,7 @@ public class ConfigReader {
             if (envStream != null) {
                 PROPERTIES.load(envStream);
             } else {
-                System.out.println("Environment file not found for: " + env);
+                System.out.println("Environment file not found for: " + envFile);
             }
         } catch (IOException e) {
             System.err.println("Error reading env config: " + e.getMessage());

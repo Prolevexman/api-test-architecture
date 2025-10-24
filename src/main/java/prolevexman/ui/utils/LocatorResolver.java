@@ -40,4 +40,23 @@ public class LocatorResolver {
         }
         return resolve(value);
     }
+
+    public static By byText(By baseLocator, String text) {
+        String baseXpath = "";
+
+        String locatorString = baseLocator.toString();
+
+        if (locatorString.startsWith("By.xpath: ")) {
+            baseXpath = locatorString.replace("By.xpath: ", "");
+        } else if (locatorString.startsWith("By.cssSelector: ")) {
+            String css = locatorString.replace("By.cssSelector: ", "");
+            baseXpath = "//*[" + "contains(concat(' ', normalize-space(@class), ' '), ' "
+                    + css.replace(".", "") + " ')]";
+        } else {
+            throw new IllegalArgumentException("Unsupported locator type for byText: " + baseLocator);
+        }
+
+        String xpathWithText = baseXpath + String.format("//*[normalize-space(text())='%s']", text);
+        return By.xpath(xpathWithText);
+    }
 }
