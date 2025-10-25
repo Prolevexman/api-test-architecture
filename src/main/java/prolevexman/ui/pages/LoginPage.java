@@ -13,4 +13,26 @@ public class LoginPage extends BasePage {
     private final By loginButton = By.xpath(".//button[span[text()='Login']]");
 
 
+    public LoginPage openLoginPage() {
+        openPage(URL);
+        waitVisibilityOfElement(loginButton);
+        return this;
+    }
+
+    public LoginPage fillUsername(String username) {
+        typeText(usernameField, username);
+        return this;
+    }
+
+    public LoginPage fillPassword(String password) {
+        typeText(passwordField, password);
+        return this;
+    }
+
+    public LoginPage clickLoginButton() {
+        clickElementWithCheck(loginButton);
+        return this;
+    }
+
+
 }
