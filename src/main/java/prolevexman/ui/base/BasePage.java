@@ -60,7 +60,7 @@ public abstract class BasePage {
                             logger.debug("Clicked element successfully: {}", locator);
                             return true;
                         } else {
-                            logger.warn("Element not yet clickable: {}", locator)
+                            logger.warn("Element not yet clickable: {}", locator);
                             return false;
                         }
                     });
