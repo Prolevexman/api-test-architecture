@@ -1,5 +1,7 @@
 package prolevexman.ui.base;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
@@ -17,6 +19,7 @@ public abstract class BasePage {
     protected WebDriverWait wait;
     protected WebDriver driver;
     protected static final int TIMEOUT_SECONDS = 10;
+    protected static final Logger logger = LogManager.getLogger(BasePage.class);
 
 
     public BasePage() {
@@ -41,6 +44,7 @@ public abstract class BasePage {
     }
 
     protected void clickElementWithCheckAndRetry(By locator) {
+        logger.info("Attempting to click element: {}", locator);
         try {
             wait.pollingEvery(ofMillis(500))
                     .ignoring(NoSuchElementException.class)
@@ -53,12 +57,15 @@ public abstract class BasePage {
                                     .pause(ofMillis(500))
                                     .click()
                                     .perform();
+                            logger.debug("Clicked element successfully: {}", locator);
                             return true;
                         } else {
+                            logger.warn("Element not yet clickable: {}", locator)
                             return false;
                         }
                     });
         } catch (TimeoutException e) {
+            logger.error("Failed to click element after {} seconds: {}", TIMEOUT_SECONDS, locator, e);
             throw new NoSuchElementException(
                     "Element not clickable after " + TIMEOUT_SECONDS + " seconds: " + locator, e);
         }
