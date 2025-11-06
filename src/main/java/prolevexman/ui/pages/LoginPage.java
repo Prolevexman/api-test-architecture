@@ -11,6 +11,9 @@ public class LoginPage extends BasePage {
     private final By usernameField = By.xpath(".//input[@id='sign-in_email']");
     private final By passwordField = By.xpath(".//input[@id='sign-in_password']");
     private final By loginButton = By.xpath(".//button[span[text()='Login']]");
+    private final By registerNow = By.xpath(".//a[@href='/auth/sign-up']");
+    private final By forgotPassword = By.xpath(".//a[contains(text(), 'Forgot password')]");
+    private final By authError = By.xpath(".//span[contains(., 'Auth credential is malformed')]");
 
 
     public LoginPage openLoginPage() {
@@ -34,5 +37,25 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public LoginPage login(String username, String password) {
+        fillUsername(username);
+        fillPassword(password);
+        clickLoginButton();
+        return this;
+    }
+
+    public String getAuthErrorMessage() {
+        return getText(authError);
+    }
+
+    public RegistePage clickRegisterNow() {
+        clickElementWithCheck(registerNow);
+        return new RegisterPage();
+    }
+
+    public LoginPage clickForgotPassword() {
+        clickElementWithCheck(forgotPassword);
+        return this;
+    }
 
 }
