@@ -48,7 +48,7 @@ public class LoginPage extends BasePage {
         return getText(authError);
     }
 
-    public RegistePage clickRegisterNow() {
+    public RegisterPage clickRegisterNow() {
         clickElementWithCheck(registerNow);
         return new RegisterPage();
     }
