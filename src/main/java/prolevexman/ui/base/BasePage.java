@@ -22,8 +22,8 @@ public abstract class BasePage {
     protected static final Logger logger = LogManager.getLogger(BasePage.class);
 
 
-    public BasePage() {
-        this.driver = DriverFactory.getDriver();
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, ofSeconds(TIMEOUT_SECONDS));
     }
 

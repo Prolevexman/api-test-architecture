@@ -1,6 +1,7 @@
 package prolevexman.ui.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import prolevexman.ui.base.BasePage;
 import prolevexman.ui.utils.ConfigReader;
 
@@ -15,6 +16,9 @@ public class LoginPage extends BasePage {
     private final By forgotPassword = By.xpath(".//a[contains(text(), 'Forgot password')]");
     private final By authError = By.xpath(".//span[contains(., 'Auth credential is malformed')]");
 
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
 
     public LoginPage openLoginPage() {
         openPage(URL);
