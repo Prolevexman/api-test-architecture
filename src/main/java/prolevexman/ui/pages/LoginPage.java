@@ -36,26 +36,26 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public LoginPage clickLoginButton() {
+    public NavigationPanel clickLoginButton() {
         clickElementWithCheck(loginButton);
-        return this;
+        return new NavigationPanel(driver);
     }
 
-    public LoginPage login(String username, String password) {
+    public NavigationPanel login(String username, String password) {
         fillUsername(username);
         fillPassword(password);
         clickLoginButton();
-        return this;
+        return new NavigationPanel(driver);
     }
 
     public String getAuthErrorMessage() {
         return getText(authError);
     }
 
-    public RegisterPage clickRegisterNow() {
-        clickElementWithCheck(registerNow);
-        return new RegisterPage();
-    }
+//    public RegisterPage clickRegisterNow() {
+//        clickElementWithCheck(registerNow);
+//        return new RegisterPage();
+//    }
 
     public LoginPage clickForgotPassword() {
         clickElementWithCheck(forgotPassword);

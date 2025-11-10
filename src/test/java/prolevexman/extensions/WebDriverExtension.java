@@ -39,7 +39,7 @@ public class WebDriverExtension implements BeforeAllCallback, AfterAllCallback,
     @Override
     public void afterEach(ExtensionContext context) {
         boolean perClass = isPerClass(context);
-        if (perClass) {
+        if (!perClass) {
             quitDriver(context);
         }
     }
