@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 import prolevexman.annotations.Browser;
 import prolevexman.extensions.WebDriverExtension;
+import prolevexman.testdata.TestUsers;
+import prolevexman.testdata.User;
 import prolevexman.ui.pages.LoginPage;
 import prolevexman.ui.pages.NavigationPanel;
 
@@ -16,8 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Browser
 public class SignInPositiveTest {
 
-    private String username = "sup1dev@vdnew.test";
-    private String pass = "Sdev-_-59]?";
+    private final User supplier = TestUsers.supplier();
     private LoginPage loginPage;
     private NavigationPanel navigationPanel;
 
@@ -32,10 +33,10 @@ public class SignInPositiveTest {
     @Test
     void signInSupplierTest() {
 
-        loginPage.fillUsername(username)
-                .fillPassword(pass)
+        loginPage.fillUsername(supplier.getEmail())
+                .fillPassword(supplier.getPass())
                 .clickLoginButton();
-        assertTrue(navigationPanel.isVisibleLogoutButton());
+        assertTrue(navigationPanel.isVisibleLogoutButton(), "Logout button not visible after login");
 
     }
 }
