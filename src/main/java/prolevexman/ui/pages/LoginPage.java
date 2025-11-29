@@ -36,9 +36,9 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public NavigationPanel clickLoginButton() {
+    public ReportsPage clickLoginButton() {
         clickElementWithCheck(loginButton);
-        return new NavigationPanel(driver);
+        return new ReportsPage(driver);
     }
 
     public NavigationPanel login(String username, String password) {

@@ -11,6 +11,7 @@ import prolevexman.testdata.TestUsers;
 import prolevexman.testdata.User;
 import prolevexman.ui.pages.LoginPage;
 import prolevexman.ui.pages.NavigationPanel;
+import prolevexman.ui.pages.ReportsPage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -33,10 +34,10 @@ public class SignInPositiveTest {
     @Test
     void signInSupplierTest() {
 
-        loginPage.fillUsername(supplier.getEmail())
-                .fillPassword(supplier.getPass())
-                .clickLoginButton();
+        ReportsPage reportsPage = loginPage.fillUsername(supplier.getEmail())
+                                        .fillPassword(supplier.getPass())
+                                        .clickLoginButton();
         assertTrue(navigationPanel.isVisibleLogoutButton(), "Logout button not visible after login");
-
+        assertTrue(reportsPage.isLoaded(), "Reports page is not loaded after login, current URL: " + loginPage.getDriver().getCurrentUrl());
     }
 }

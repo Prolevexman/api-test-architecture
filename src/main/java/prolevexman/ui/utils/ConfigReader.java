@@ -1,5 +1,7 @@
 package prolevexman.ui.utils;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +15,12 @@ public class ConfigReader {
     private static final Properties PROPERTIES = new Properties();
 
     private static volatile boolean initialazed = false;
+
+    private static final Dotenv DOTENV = Dotenv.configure()
+            .filename(".env")
+            .ignoreIfMalformed()
+            .ignoreIfMissing()
+            .load();
 
     private ConfigReader() {}
 
@@ -89,7 +97,7 @@ public class ConfigReader {
             key = String.format("%s_%s_%s_%d", env, role.toUpperCase(), field.toUpperCase(), index);
         }
 
-        return System.getenv(key);
+        return DOTENV.get(key);
     }
 
     public static String getEnvCredential(String role, String field) {
