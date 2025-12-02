@@ -14,7 +14,7 @@ public class ConfigReader {
     private static final Logger LOG = Logger.getLogger(ConfigReader.class.getName());
     private static final Properties PROPERTIES = new Properties();
 
-    private static volatile boolean initialazed = false;
+    private static volatile boolean initialized = false;
 
     private static final Dotenv DOTENV = Dotenv.configure()
             .filename(".env")
@@ -25,10 +25,10 @@ public class ConfigReader {
     private ConfigReader() {}
 
     private static synchronized void init() {
-        if (initialazed) return;
+        if (initialized) return;
         loadBaseConfig();
         loadEnvConfig();
-        initialazed = true;
+        initialized = true;
     }
 
     private static void loadBaseConfig() {
@@ -69,7 +69,7 @@ public class ConfigReader {
     }
 
     public static String get(String key) {
-        if (initialazed) init();
+        if (initialized) init();
 
         String value = System.getProperty(key);
         if (value != null) return value;
@@ -86,7 +86,7 @@ public class ConfigReader {
     }
 
     public static String getEnvCredential(String role, String field, Integer index) {
-        if (!initialazed) init();
+        if (!initialized) init();
 
         String env = System.getProperty("env", PROPERTIES.getProperty("env", "dev")).toUpperCase();
 
@@ -117,7 +117,7 @@ public class ConfigReader {
 
     public static synchronized void reload() {
         PROPERTIES.clear();
-        initialazed = false;
+        initialized = false;
         init();
         LOG.info("Config reload");
     }
