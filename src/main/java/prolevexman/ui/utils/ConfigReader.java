@@ -97,7 +97,17 @@ public class ConfigReader {
             key = String.format("%s_%s_%s_%d", env, role.toUpperCase(), field.toUpperCase(), index);
         }
 
-        return DOTENV.get(key);
+        String value = System.getenv(key);
+        if (value != null) return value;
+
+        value = System.getProperty(key);
+        if (value != null) return value;
+
+        if (DOTENV != null) {
+            value = DOTENV.get(key);
+        }
+
+        return value;
     }
 
     public static String getEnvCredential(String role, String field) {
