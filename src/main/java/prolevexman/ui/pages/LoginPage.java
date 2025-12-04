@@ -62,4 +62,8 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public boolean isLoaded() {
+        return isElementDisplayed(loginButton);
+    }
+
 }
