@@ -10,7 +10,7 @@ public record HttpResponse(
         byte[] bodyBytes,
         String contentType
 ) {
-    String bodyAsString(Charset charset) {
+    public String bodyAsString(Charset charset) {
         if(bodyBytes == null) {
             return null;
         }

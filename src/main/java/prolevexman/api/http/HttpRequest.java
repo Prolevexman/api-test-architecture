@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-record HttpRequest (
+public record HttpRequest (
         HttpMethod method,
         String path,
         Map<String, List<String>> headers,
@@ -51,12 +51,16 @@ record HttpRequest (
         }
 
         public HttpRequest build() {
+            Map<String, List<String>> immutableHeaders = new HashMap<>();
+            headers.forEach((k,v) -> immutableHeaders.put(k, List.copyOf(v)));
 
+            Map<String, List<String>> immutableQuery = new HashMap<>();
+            query.forEach((k,v) -> immutableQuery.put(k, List.copyOf(v)));
             return new HttpRequest(
                     method,
                     path,
-                    headers,
-                    query,
+                    Map.copyOf(immutableHeaders),
+                    Map.copyOf(immutableQuery),
                     body
             );
         }
