@@ -12,11 +12,11 @@ public record HttpRequest (
         Map<String, List<String>> query,
         Body body
 ) {
-    static Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    static class Builder {
+    public static class Builder {
         private HttpMethod method;
         private String path;
         private Map<String, List<String>> headers = new HashMap<>();
