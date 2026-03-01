@@ -25,8 +25,8 @@ public final class AuthService {
 
         HttpRequest request = HttpRequest.builder()
                 .method(HttpMethod.POST)
-                .path("api/v1/login")
-                .header("Accept", "application/json")
+                .path("/api/v1/login")
+                .header("Accept", "*/*")
                 .header("Content-Type", "application/json")
                 .body(new StringBody(payload, "application/json"))
                 .build();
@@ -37,13 +37,20 @@ public final class AuthService {
             throw new ApiException("Login failed. status=" + response.statusCode(), request, response);
         }
 
-        String body = response.bodyAsString(StandardCharsets.UTF_8);
-        LoginResponseDto parsed = json.fromJson(body, LoginResponseDto.class);
+//        String body = response.bodyAsString(StandardCharsets.UTF_8);
+//        LoginResponseDto parsed = json.fromJson(body, LoginResponseDto.class);
+//
+//        if(parsed == null || parsed.token() == null || parsed.token().isBlank()) {
+//            throw new ApiException("Login response has blank token", request, response);
+//        }
+//
+//        return parsed;
 
-        if(parsed == null || parsed.token() == null || parsed.token().isBlank()) {
-            throw new ApiException("Login response has blank token", request, response);
+        String token = response.bodyAsString(StandardCharsets.UTF_8);
+        if (token == null || (token = token.trim()).isEmpty()) {
+            throw new ApiException("Login returned empty token", request, response);
         }
 
-        return parsed;
+        return new LoginResponseDto(token);
     }
 }
