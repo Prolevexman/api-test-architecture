@@ -2,11 +2,11 @@ package prolevexman.api.auth;
 
 import java.util.Objects;
 
-public final class CaсhingTokenProvider implements TokenProvider {
+public final class CachingTokenProvider implements TokenProvider {
     private final TokenProvider delegate;
     private volatile String cachedToken;
 
-    public CaсhingTokenProvider(TokenProvider delegate) {
+    public CachingTokenProvider(TokenProvider delegate) {
         this.delegate = Objects.requireNonNull(delegate, "delegate");
     }
 
@@ -17,14 +17,14 @@ public final class CaсhingTokenProvider implements TokenProvider {
             return token;
         }
         synchronized (this) {
-            if( cachedToken == null) cachedToken = requireNonBlank(delegate.getToken(), "delegate token");
+            if (cachedToken == null) cachedToken = requireNonBlank(delegate.getToken(), "delegate token");
             return cachedToken;
         }
     }
 
-    private String requireNonBlank(String token, String delegateToken) {
+    private static String requireNonBlank(String token, String what) {
         if (token == null || token.isBlank()) {
-            throw new IllegalArgumentException("TokenProvider returned blank " + delegateToken);
+            throw new IllegalArgumentException("TokenProvider returned blank " + what);
         }
         return token;
     }
@@ -35,3 +35,4 @@ public final class CaсhingTokenProvider implements TokenProvider {
         delegate.invalidate();
     }
 }
+
