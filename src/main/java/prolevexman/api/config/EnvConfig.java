@@ -1,25 +1,20 @@
 package prolevexman.api.config;
 
-public class EnvConfig implements Config{
+public final class EnvConfig implements Config {
+
+    private final Config delegate = new CompositeConfig(
+            new SystemPropertiesConfig(),
+            new EnvironmentVariablesConfig(),
+            new DotenvConfig()
+    );
+
     @Override
     public String get(String key) {
-        String value = System.getProperty(key);
-        if (value != null) {
-            return value;
-        }
-        value = System.getenv(toEnvString(key));
-        return value;
-    }
-
-    private String toEnvString(String key) {
-        return key
-                .replace(".", "_")
-                .toUpperCase();
+        return delegate.get(key);
     }
 
     @Override
     public String get(String key, String def) {
-        String value = get(key);
-        return value != null ? value : def;
+        return delegate.get(key, def);
     }
 }
