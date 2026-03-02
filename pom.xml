@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>prolevexman</groupId>
-    <artifactId>base86_UI</artifactId>
+    <artifactId>API_test_Framework_concept</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
