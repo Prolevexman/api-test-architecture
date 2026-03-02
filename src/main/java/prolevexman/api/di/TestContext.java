@@ -9,6 +9,7 @@ import prolevexman.api.http.HttpClient;
 import prolevexman.api.http.interceptors.AuthInterceptor;
 import prolevexman.api.http.interceptors.HttpInterceptor;
 import prolevexman.api.http.interceptors.InterceptorHttpClient;
+import prolevexman.api.http.interceptors.LoggingInterceptor;
 import prolevexman.api.http.restassured.RestAssuredHttpClient;
 import prolevexman.api.services.AuthService;
 import prolevexman.api.support.Json;
@@ -62,7 +63,9 @@ public final class TestContext implements AutoCloseable {
 
         HttpClient transport = new RestAssuredHttpClient(settings);
 
-        List<HttpInterceptor> shared = List.of();
+        List<HttpInterceptor> shared = List.of(
+                new LoggingInterceptor()
+        );
 
         HttpClient publicClient = new InterceptorHttpClient(transport, shared);
         AuthService authService = new AuthService(publicClient, json);
