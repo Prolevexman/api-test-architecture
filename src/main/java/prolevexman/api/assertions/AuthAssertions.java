@@ -14,7 +14,6 @@ public final class AuthAssertions {
             throw new AssertionError("Token is blank");
         }
 
-        // Базовая sanity-проверка JWT (опционально, но полезно)
         int parts = dto.token().split("\\.").length;
         if (parts != 3) {
             throw new AssertionError("Token doesn't look like a JWT (expected 3 dot-separated parts)");
