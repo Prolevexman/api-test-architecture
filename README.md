@@ -9,6 +9,15 @@ This repository is a **concept / reference implementation** of a scalable API te
 
 ---
 
+### Documentation
+
+- `docs/ARCHITECTURE.md` — architecture overview and extension rules
+- `docs/DIAGRAMS.md` — Mermaid diagrams (class interaction + sequence)
+- `docs/CLASS_REFERENCE.md` — per-class reference (role, responsibilities, nuances)
+- `docs/TEMPLATE_STRUCTURE.md` — reusable template structure for future frameworks
+
+---
+
 ### Tech stack
 
 - **Java**: 21
