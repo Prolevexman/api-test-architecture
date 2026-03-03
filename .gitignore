@@ -12,6 +12,7 @@
 .allure/
 *.iml
 out/
+docs/
 
 # Eclipse
 .project
